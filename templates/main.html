@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comercial</title>
+    <link rel="stylesheet" href="{% static 'styles/main.css'%}">
+    {% block head %}
+    
+    {% endblock %}
+</head>
+<body class="body-flex">
+
+    <header class="top-bar">
+        <div class="logo">
+            <h1><a href="{% url 'contas' %}" class="logo-link">Logo</a></h1>
+        </div>
+        <h1>Comercial São Francisco</h1>
+    </header>
+    
+    <div class="web-template">
+        <div>
+            {% include 'nav.html' %}
+        </div>
+        <div class="main-content">
+            {% block content %}
+            {% endblock content %}
+        </div>
+    </div>
+
+</body>
+</html>

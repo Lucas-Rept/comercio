@@ -1,0 +1,129 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'styles/contas.css' %}">
+{% endblock head %}
+
+{% block content %}
+
+<div class="modal-container hidden" id="createModal">
+    <div class="modal">
+        <div class="modal-header"><span>Adicionar Cliente</span> <span class="exit-button" onclick="toggleCreateModal()">X</span></div>
+        <form action="" method="POST" class="create-form">
+            {% csrf_token %}
+            {{form}}
+            <input type="submit" value="Cadastrar" name="createSubmitButton" class="add-submit-button">
+        </form>
+    </div>
+</div>
+
+<div class="modal-container hidden" id="deleteModal">
+    <div class="modal">
+        <div class="modal-header"><span class="client-name">Deletar cliente</span> <span class="exit-button" onclick="toggleDeleteModal()">X</span></div>
+        <form action="" method="POST" class="delete-form">
+            {% csrf_token %}
+            <p class="delete-text">Deseja realmente deletar 
+                <span id="clientToBeDeleted"></span>?</p>
+            <input type="text" style="display: none;" id="cliente_name" name="cliente_name">
+            <input type="submit" value="Deletar" class="add-submit-button" name="deleteSubmitButton">
+        </form>
+    </div>
+</div>
+
+<div class="modal-container hidden" id="editModal">
+    <div class="modal">
+        <div class="modal-header"><span class="client-name">Editar cliente</span> <span class="exit-button" onclick="toggleEditModal()">X</span></div>
+        <form action="" method="POST" class="edit-form">
+            {% csrf_token %}
+            <input type="text" id="cliente_name_edit" name="old_cliente_name" style="display: none;" class="name-input">
+            <input type="text" name="new_cliente_name" placeholder="Novo nome" class="name-input" id="new_cliente_name">
+            <input type="tel" maxlength="15" name="new_cliente_cellphone" placeholder="(00) 0000-0000" class="telefone-input" id="telefone-input" onkeyup="handlePhone(event)">
+            <input type="submit" value="Confirmar" class="add-submit-button" name="editSubmitButton">
+        </form>
+    </div>
+</div>
+
+{% include 'contas/components/topbar.html' %}
+
+<div class="contas-container">
+    <form method="GET" action="" class="client-search-form">
+        <input class="search-bar" type="text" placeholder="Digite o nome do cliente (Deixe vazio para retornar todos!)" name="cliente" id="searchBar"> 
+        <input type="submit" value="Pesquisar" class="button">
+        <button id="addButton" onclick="toggleCreateModal()" type="button" class="button">Adicionar</button>
+    </form>
+
+    <ul class="client-list">
+        <li id="list-header">Nome do Cliente</li>
+        {% for cliente in clientes %}
+        <li class="list-item" id="{{cliente.id}}"><span class="cliente-info"><span class="client-name">{{cliente}}</span><span class="client-cellphone" style="display: none;">{{cliente.telefone}}</span></span>
+            <span class="ud-options">
+                <img src="{% static 'images/edit_icon.svg' %}" alt="edit-icon" onclick="toggleEditModal(this)">
+                <img src="{% static 'images/delete_icon.svg' %}" alt="delete-icon" onclick="toggleDeleteModal(this)">
+            </span>
+        </li>
+        {% endfor %}
+    </ul>
+
+    {% include 'contas/components/paginator.html' %}
+
+</div>
+
+
+<script>
+    let createModal = document.querySelector('#createModal')
+    let deleteModal = document.querySelector("#deleteModal")
+    let editModal = document.querySelector("#editModal")
+    let camp = document.querySelector('#name-input')
+    let searchBar = document.querySelector('#searchBar')
+    let clientes = document.querySelectorAll('.list-item')
+
+    clientes.forEach(cliente => {
+        cliente.addEventListener('click', (e) => {
+            target = e.target
+            clickedElement = target.getAttribute('alt')
+            if(clickedElement != 'delete-icon' && clickedElement != 'edit-icon'){
+                id = cliente.getAttribute('id')
+                url = "{% url 'cliente' 0 %}".replace('0', id)
+                window.location.href = url
+            }
+        })
+    })
+
+    searchBar.focus()
+
+    function toggleCreateModal(e){
+        createModal.classList.toggle('hidden')
+        camp.focus()
+    }
+
+    function toggleDeleteModal(target){
+        deleteModal.classList.toggle('hidden')
+        let clientName = target.parentElement.previousElementSibling.children[0].innerHTML
+        document.querySelector('#clientToBeDeleted').innerHTML = clientName
+        document.querySelector("#cliente_name").value = clientName
+    }
+
+    function toggleEditModal(target){
+        editModal.classList.toggle('hidden')
+        let clientName = target.parentElement.previousElementSibling.children[0].innerHTML
+        let clientCellphone = target.parentElement.previousElementSibling.children[1].innerHTML
+        console.log(clientCellphone)
+        document.querySelector("#cliente_name_edit").value = clientName
+        document.querySelector("#new_cliente_name").value = clientName
+        if(clientCellphone != 'None'){
+            document.querySelector("#telefone-input").value = clientCellphone
+        }
+        else{
+            document.querySelector("#telefone-input").value = ""
+        }
+    }
+</script>
+
+<script src="{% static 'scripts/masks.js' %}"></script>
+
+{% endblock content %}
+
+
+
+

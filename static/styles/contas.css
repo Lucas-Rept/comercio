@@ -1,0 +1,171 @@
+.modal-container{
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100vh;
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.338);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal{
+    background-color: white;
+}
+
+.hidden{
+    display: none;
+}
+
+.contas-container{
+    padding: 3rem;
+}
+
+.client-search-form{
+    display: flex;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
+.search-bar{
+    border: 1px solid lightgray;
+    border-radius: 8px;
+    font-size: 16px;
+    padding:0.5rem 1rem;
+    width: 35%;
+}
+
+.button{
+    border: none;
+    border-radius: 10px;
+    width: 100px;
+    color: white;
+    background-color: #219EBC;
+    padding: 0.5rem;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 1rem;
+    transition: 0.2s;
+}
+
+.button:hover{
+    background-color: #135262;
+}
+
+.client-list{
+    list-style: none;
+    margin-bottom: 2rem;
+}
+
+.client-list li{
+    padding: 0.5rem 0.7rem;
+    transition: 0.15s;
+    cursor: pointer;
+}
+
+.client-list li:hover{
+    color: white;
+    background-color: #717171;
+}
+
+.client-list li:nth-of-type(odd){
+    background-color: #d9d9d9;
+}
+
+.client-list li:nth-of-type(odd):hover{
+    color: white;
+    background-color: #717171;
+}
+#list-header{
+    background-color: #333533;
+    color: white;
+    cursor: default;
+}
+
+.modal{
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.modal-header{
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: white;
+    background-color: #FB8500;
+    padding: 0.7rem 1.2rem;
+    width: 350px;
+    max-width: 350px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.exit-button{
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.exit-button:hover{
+    transform: rotate(360deg) scale(1.4);
+    color: red;
+}
+
+.name-input, .telefone-input{
+    display: block;
+    margin: auto;
+    width: 70%;
+    text-align: center;
+    font-size: 15px;
+    padding: 0.5rem;
+    margin-top: 1rem;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+}
+
+.add-submit-button{
+    display: block;
+    margin: auto;
+    margin-bottom: 1.5rem;
+    background-color: #219EBC;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    width: 150px;
+    padding: 0.5rem;
+    transition: 0.15s;
+    cursor: pointer;
+    margin-top: 2rem;
+}
+
+.add-submit-button:hover{
+    background-color: #135262;
+}
+
+.list-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ud-options{
+    height: 40px;
+}
+
+.ud-options img{
+    height: 100%;
+}
+
+.delete-form, .edit-form, .create-form{
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.delete-form p{
+    margin-bottom: 1rem;
+}
+
+.delete-text{
+    white-space: pre-line;
+}

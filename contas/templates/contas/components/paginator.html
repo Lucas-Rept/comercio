@@ -1,0 +1,53 @@
+<style>
+
+    .pagination-container{
+        width: fit-content;
+        display: flex;
+        list-style: none;
+        margin: auto;
+    }
+
+    .pagination-container a{
+        text-decoration: none;
+        color: gray;
+        text-align: center;
+        border: 2px solid lightgrey;
+        width: 40px;
+        line-height: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 5px;
+    }
+
+    .pagination-container .page-active{
+        background-color: #219EBC;
+        color: white;
+    }
+
+</style>
+
+{% if urlContext == 'contas' %}
+    <ul class="pagination-container">
+        {% if pages.page >=  2 %}
+            <a href="{% url 'contas' %}?page={{pages.antPage}}&cliente={{name}}">
+                <li>&lt</li>
+            </a>
+            <a href="{% url 'contas' %}?page={{pages.antPage}}&cliente={{name}}">
+                <li>{{pages.antPage}}</li>
+            </a>
+        {% endif %}
+
+            <a href="{% url 'contas' %}?page={{pages.page}}&cliente={{name}}" class="page-active">
+                <li>{{pages.page}}</li>
+            </a>
+        
+        {% if pages.page <  num_pages %}
+            <a href="{% url 'contas' %}?page={{pages.proxPage}}&cliente={{name}}">
+                <li>{{pages.proxPage}}</li>
+            </a>
+            <a href="{% url 'contas' %}?page={{pages.proxPage}}&cliente={{name}}">
+                <li>&gt</li>
+            </a>
+        {% endif %}
+    </ul>
+{% endif %}
